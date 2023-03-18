@@ -2,6 +2,8 @@ class GetUsersJob
   include Sidekiq::Job
 
   def perform(*args)
-    puts "Getting users............"
+    limit, skip = args
+    response = DummyjsonService.new(limit, skip).call
+    puts "Got these user #{response}"
   end
 end

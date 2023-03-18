@@ -9,7 +9,7 @@ class DummyjsonService
   end
 
   def call
-    response = self.class.get("/#{@resource}?limit=#{@limit}&skip=#{@skip}")
+    response = self.class.get("/#{@resource}?limit=#{@limit}&skip=#{@skip}&select=firstName,lastName,email,phone")
     response.parsed_response
   end
 end

@@ -4,6 +4,9 @@ class PagesController < ApplicationController
   end
 
   def seed_users
-    GetUsersJob.perform_async()
+    10.times do |x|
+      skip = x*10
+      response = GetUsersJob.perform_async(10, skip)
+    end
   end
 end
