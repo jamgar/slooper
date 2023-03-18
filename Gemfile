@@ -76,3 +76,5 @@ end
 
 # Added Gems
 gem "httparty", "~> 0.21.0"
+
+gem "sidekiq", "~> 7.0"
