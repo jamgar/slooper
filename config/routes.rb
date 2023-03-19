@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     end
   end 
 
-  post "seedusers", to: "pages#seed_users"
+  post "seedusers", to: "users#seed_users"
 
   namespace :api do
     namespace :v1 do
