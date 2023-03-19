@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         format.html { redirect_to users_path, notice: "User successfully created." }
+        format.turbo_stream { flash.now[:notice] = "User successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -30,6 +31,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to users_path, notice: "User successfully updated." }
+        format.turbo_stream { flash.now[:notice] = "User successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }  
       end
@@ -40,9 +42,8 @@ class UsersController < ApplicationController
     @user.destroy 
     
     respond_to do |format|
-      format.html { redirect_to users_path, notice: "User successfully delete." }
-      format.turbo_stream
-      format.json { head :no_content }
+      format.html { redirect_to users_path, notice: "User successfully deleted." }
+      format.turbo_stream { flash.now[:notice] = "User successfully deleted." }
     end
   end
 
