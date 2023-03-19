@@ -1,0 +1,44 @@
+<%= form_with(model: user) do |form| %>
+  <% if user.errors.any? %>
+    <div class="alert alert-error shadow-lg">
+      <div>
+        <div>
+          <h2 class="text-red-900">
+            <%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:
+          </h2>
+          <% user.errors.each do |error| %>
+            <p><%= error.full_message %></p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-5 gap-4">
+    <div class="form-control">
+      <%= form.label :first_name, class: "label" %>
+      <%= form.text_field :first_name, class: "input input-bordered w-full bg-white" %>
+    </div>
+
+    <div class="form-control">
+      <%= form.label :last_name, class: "label" %>
+      <%= form.text_field :last_name, class: "input input-bordered w-full bg-white" %>
+    </div>
+
+    <div class="form-control">
+      <%= form.label :email, class: "label" %>
+      <%= form.text_field :email, class: "input input-bordered w-full bg-white" %>
+    </div>
+
+    <div class="form-control">
+      <%= form.label :phone, class: "label" %>
+      <%= form.text_field :phone, class: "input input-bordered w-full bg-white" %>
+    </div>
+
+    <div class="flex items-end gap-2">
+      <%= form.submit "Save", class: "btn btn-sm btn-primary" %>
+      <%= link_to "Cancel", users_path, class: "btn btn-sm mr-2" %>
+    </div>
+  </div>
+<% end %>
+

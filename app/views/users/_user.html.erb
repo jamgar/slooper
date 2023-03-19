@@ -1,0 +1,12 @@
+<%= turbo_frame_tag user do %>
+  <div class="grid grid-cols-5 gap-4 py-4">
+    <div class="col-span-1"><%= link_to user.first_name, user_path(user) %></div>
+    <div class="col-span-1"><%= user.last_name %></div>
+    <div class="col-span-1 overflow-hidden"><%= user.email %></div>
+    <div class="col-span-1"><%= user.phone %></div>
+    <div class="flex">
+      <%= link_to "Edit", edit_user_path(user), class: "btn btn-sm btn-success mr-4" %>
+      <%= button_to "Delete", user_path(user), method: :delete, form: { data: { turbo_confirm: "Are you sure?" } }, class: "btn btn-sm btn-error" %>
+    </div>
+  </div>
+<% end %>
