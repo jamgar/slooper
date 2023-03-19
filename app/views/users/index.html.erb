@@ -4,6 +4,13 @@
       <h1 class="font-bold text-4xl my-4">Users</h1>
       <%= link_to "New User", new_user_path, data: { turbo_frame: dom_id(User.new) }, class: "btn btn-sm btn-primary" %>
     </div>
+    <div class="flex justify-between my-4">
+      <%= render "search_form" %>
+      <div class="flex gap-2">
+        <%= render "filter_form" %>
+        <%= button_to "Clear filter", users_path, method: :get, class: "btn btn-sm", form: { class: "my-2"} %>
+      </div>
+    </div>
     <%= form_with url: deleteall_users_path, method: :delete, data: { turbo_frame: "_top" } do |form|  %>
       <%= submit_tag "Bulk Delete", class: "btn btn-sm btn-error" %>
       <div class="flex">

@@ -2,8 +2,13 @@ class UsersController < ApplicationController
   before_action :set_users, only: %i[ show edit update destroy ]
 
   def index
-    # @users = User.all
-    @pagy, @users = pagy(User.all, items: 5)
+    @users = User.all
+    if params[:query].present?
+      @users = @users.where("first_name Like ?", "%#{params[:query]}%").or(User.where("email Like ?", "%#{params[:query]}%")) 
+    elsif params[:filter_option].present?
+      @users = @users.where("#{params[:filter_option]} Like ?", "%#{params[:filter]}%")
+    end
+    @pagy, @users = pagy(@users.all, items: 5)
   end
 
   def show 
@@ -60,6 +65,11 @@ class UsersController < ApplicationController
     User.destroy_all
 
     UserReaderService.call
+  end
+
+  def clear_filter
+    clear_session(:filter_option, :filter)
+    @users = Users.all
   end
 
   private

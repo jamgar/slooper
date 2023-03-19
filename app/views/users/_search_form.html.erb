@@ -1,0 +1,13 @@
+<div>
+  <%= form_with url: users_path, method: :get, data: { controller: "search-form",
+                                                           turbo_action: "advance",
+                                                           turbo_frame: "users" } do |form| %>
+    <%= form.text_field :query,
+      placeholder: "Search Name or Email", 
+      class: "input input-bordered w-full", 
+      autocomplete: "off", 
+      data: { action: "input->search-form#search" } 
+    %>
+  <% end %>
+</div>
+

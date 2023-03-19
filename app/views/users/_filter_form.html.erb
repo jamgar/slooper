@@ -1,0 +1,19 @@
+<div>
+  <%= form_with url: users_path, method: :get, data: { controller: "search-form",
+                                                           turbo_action: "advance",
+                                                           turbo_frame: "users" }, class: "flex" do |form| %>
+      
+   <%= select_tag "filter_option", 
+     options_for_select([[ "First name", "first_name"], ["Last name", "last_name"]]),
+     prompt: "Pick a filter", class: "select selected-bordered mr-2"
+   %>
+
+    <%= form.text_field :filter,
+      placeholder: "Search Name or Email", 
+      class: "input input-bordered w-full", 
+      autocomplete: "off", 
+      data: { action: "input->search-form#search" } 
+    %>
+  <% end %>
+</div>
+
