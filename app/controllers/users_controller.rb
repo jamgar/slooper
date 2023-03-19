@@ -57,7 +57,6 @@ class UsersController < ApplicationController
   end 
 
   def seed_users
-    # clear Users table
     User.destroy_all
 
     UserReaderService.call
