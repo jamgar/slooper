@@ -2,7 +2,12 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
-  resources :users
+  resources :users do
+    collection do
+      delete :deleteall
+    end
+  end 
+
   post "seedusers", to: "pages#seed_users"
 
   namespace :api do

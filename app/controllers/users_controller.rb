@@ -46,6 +46,14 @@ class UsersController < ApplicationController
       format.turbo_stream { flash.now[:notice] = "User successfully deleted." }
     end
   end
+  
+  def deleteall
+    User.destroy_by(id: params[:user_ids])
+    respond_to do |format|
+      format.html { redirect_to users_path, notice: "Users successfully deleted." }
+      # format.turbo_stream { flash.now[:notice] = "Users successfully deleted." }
+    end
+  end 
 
   def seed_users
     # clear Users table

@@ -1,22 +1,25 @@
 <div class="w-full">
   <div class="m-8">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-    <% end %>
-
-    <h1 class="font-bold text-4xl my-4">Users</h1>
-
-    <%= link_to "New User", new_user_path, data: { turbo_frame: dom_id(User.new) }, class: "btn btn-primary" %>
-    <div class="py-4 grid grid-cols-5 gap-4 font-bold">
-      <div>First name</div>
-      <div>Last name</div>
-      <div>Email</div>
-      <div>Phone</div>
-      <div></div>
+    <div class="flex justify-between">
+      <h1 class="font-bold text-4xl my-4">Users</h1>
+      <%= link_to "New User", new_user_path, data: { turbo_frame: dom_id(User.new) }, class: "btn btn-sm btn-primary" %>
     </div>
-    <%= turbo_frame_tag User.new %>
-    <%= turbo_frame_tag "users" do %>
-      <%= render @users %>
+    <%= form_with url: deleteall_users_path, method: :delete, data: { turbo_frame: "_top" } do |form|  %>
+      <%= submit_tag "Bulk Delete", class: "btn btn-sm btn-error" %>
+      <div class="flex">
+        <div class="px-4"></div>
+        <div class="w-full py-4 grid grid-cols-5 gap-4 font-bold">
+          <div>First name</div>
+          <div>Last name</div>
+          <div>Email</div>
+          <div>Phone</div>
+          <div></div>
+        </div>
+      </div>
+      <%= turbo_frame_tag User.new %>
+      <%= turbo_frame_tag "users" do %>
+        <%= render @users %>
+      <% end %>
     <% end %>
   </div>
 </div>
