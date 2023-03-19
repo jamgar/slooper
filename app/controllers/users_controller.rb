@@ -46,6 +46,7 @@ class UsersController < ApplicationController
       format.html { redirect_to users_path, notice: "User successfully deleted." }
       format.turbo_stream { flash.now[:notice] = "User successfully deleted." }
     end
+  # UserMailer.notify_delete(email: 'foo@baz.com').deliver_later
   end
   
   def deleteall
@@ -59,11 +60,8 @@ class UsersController < ApplicationController
   def seed_users
     # clear Users table
     User.destroy_all
-    
-    10.times do |x|
-      skip = x*10
-      response = GetUsersJob.perform_at(Time.now+skip,10, skip)
-    end
+
+    UserReaderService.call
   end
 
   private

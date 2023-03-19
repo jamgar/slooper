@@ -1,8 +1,6 @@
-class GetUsersJob
-  include Sidekiq::Job
+class GetUsersJob < ApplicationJob
 
-  def perform(*args)
-    limit, skip = args
+  def perform(limit, skip)
     response = DummyjsonService.new(limit, skip).call
     response['users'].each do |user|
       User.create!(first_name: user['firstName'],
