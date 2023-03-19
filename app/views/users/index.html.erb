@@ -19,6 +19,9 @@
       <%= turbo_frame_tag User.new %>
       <%= turbo_frame_tag "users" do %>
         <%= render @users %>
+        <div class="my-2">
+          <%== pagy_nav(@pagy, link_extra: 'data-turbo-action="advance"') if @pagy.pages > 1 %>
+        </div>
       <% end %>
     <% end %>
   </div>

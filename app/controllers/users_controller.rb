@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_action :set_users, only: %i[ show edit update destroy ]
 
   def index
-    @users = User.all
+    # @users = User.all
+    @pagy, @users = pagy(User.all, items: 5)
   end
 
   def show 
