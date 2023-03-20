@@ -72,7 +72,6 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
 
@@ -95,21 +94,4 @@ gem "sidekiq", "~> 7.0"
 
 gem "pagy", "~> 6.0"
 
-
-group :development, :test do
-  gem "factory_bot_rails"
-  gem "rspec-rails"
-end
-
-group :development do
-  gem "guard-bundler"
-  gem "guard-rspec"
-  gem "terminal-notifier-guard"
-end
-
-group :test do
-  gem "capybara"
-  gem "shoulda-matchers"
-  gem "vcr"
-  gem "webmock", require: "webmock/rspec"
-end
+gem "letter_opener", "~> 1.8"
