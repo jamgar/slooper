@@ -52,6 +52,9 @@ class UsersController < ApplicationController
       format.turbo_stream { flash.now[:notice] = "User successfully deleted." }
     end
   # UserMailer.notify_delete(email: 'foo@baz.com').deliver_later
+  # UserMailer.notify_delete(@user).deliver_later(wait: 30.minutes)
+  # https://github.com/sidekiq/sidekiq/wiki/Active-Job
+  
   end
   
   def deleteall

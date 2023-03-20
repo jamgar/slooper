@@ -65,6 +65,9 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem "guard-bundler"
+  gem "guard-rspec"
+  gem "terminal-notifier-guard"
 end
 
 group :test do
@@ -72,6 +75,17 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+
+  # Added by Railsbytes
+  gem "capybara"
+  gem "shoulda-matchers"
+  gem "vcr"
+  gem "webmock", require: "webmock/rspec"
+end
+
+group :development, :test do
+  gem "factory_bot_rails"
+  gem "rspec-rails"
 end
 
 # Added Gems
@@ -80,3 +94,22 @@ gem "httparty", "~> 0.21.0"
 gem "sidekiq", "~> 7.0"
 
 gem "pagy", "~> 6.0"
+
+
+group :development, :test do
+  gem "factory_bot_rails"
+  gem "rspec-rails"
+end
+
+group :development do
+  gem "guard-bundler"
+  gem "guard-rspec"
+  gem "terminal-notifier-guard"
+end
+
+group :test do
+  gem "capybara"
+  gem "shoulda-matchers"
+  gem "vcr"
+  gem "webmock", require: "webmock/rspec"
+end
