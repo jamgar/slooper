@@ -57,12 +57,13 @@ class UsersController < ApplicationController
   
   def deleteall
     # User.destroy_by(id: params[:user_ids])
-    users = User.find(params[:user_ids])
-    users.each do |user|
-      user.is_deleted = true
-      UserMailer.user_deleted(user).deliver_later(wait: 30.seconds)
-    end
+    @users = User.find(params[:user_ids])
     respond_to do |format|
+      @users.each do |user|
+        user.is_deleted = true
+        user.save
+        UserMailer.user_deleted(user).deliver_later(wait: 30.seconds)
+      end
       format.html { redirect_to users_path, notice: "Users successfully deleted." }
     end
   end 
