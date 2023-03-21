@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_users, only: %i[ show edit update destroy ]
 
   def index
-    @users = User.all
+    @users = User.where(is_deleted: false)
     if params[:query].present?
       @users = @users.where("first_name Like ?", "%#{params[:query]}%").or(User.where("email Like ?", "%#{params[:query]}%")) 
     elsif params[:filter_option].present?
@@ -45,20 +45,23 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy 
-    
+    @user.is_deleted = true
+
+    UserMailer.user_deleted(@user).deliver_later(wait: 30.seconds)
+
     respond_to do |format|
       format.html { redirect_to users_path, notice: "User successfully deleted." }
       format.turbo_stream { flash.now[:notice] = "User successfully deleted." }
     end
-  # UserMailer.notify_delete(email: 'foo@baz.com').deliver_later
-  # UserMailer.notify_delete(@user).deliver_later(wait: 30.minutes)
-  # https://github.com/sidekiq/sidekiq/wiki/Active-Job
-  
   end
   
   def deleteall
-    User.destroy_by(id: params[:user_ids])
+    # User.destroy_by(id: params[:user_ids])
+    users = User.find(params[:user_ids])
+    users.each do |user|
+      user.is_deleted = true
+      UserMailer.user_deleted(user).deliver_later(wait: 30.seconds)
+    end
     respond_to do |format|
       format.html { redirect_to users_path, notice: "Users successfully deleted." }
     end
