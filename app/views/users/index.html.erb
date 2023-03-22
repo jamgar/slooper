@@ -11,7 +11,7 @@
         <%= button_to "Clear filter", users_path, method: :get, class: "btn btn-sm", form: { class: "my-2"} %>
       </div>
     </div>
-    <%= form_with url: deleteall_users_path, method: :delete, data: { turbo_frame: "_top" } do |form|  %>
+    <%= form_with url: bulkdelete_users_path, method: :delete, data: { turbo_frame: "_top" } do |form|  %>
       <%= submit_tag "Bulk Delete", class: "btn btn-sm btn-error" %>
       <% cache('table_of_users') do %>
         <div class="flex">

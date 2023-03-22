@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
   resources :users do
     collection do
-      delete :deleteall
+      delete :bulkdelete, to: "users#bulk_delete"
     end
   end 
 

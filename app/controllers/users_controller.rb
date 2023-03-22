@@ -2,13 +2,13 @@ class UsersController < ApplicationController
   before_action :set_users, only: %i[ show edit update destroy ]
 
   def index
-    @users = User.where(is_deleted: false)
+    users = User.where(is_deleted: false)
     if params[:query].present?
-      @users = @users.where("first_name Like ?", "%#{params[:query]}%").or(User.where("email Like ?", "%#{params[:query]}%")) 
+      users = users.where("first_name Like ?", "%#{params[:query]}%").or(User.where("email Like ?", "%#{params[:query]}%")) 
     elsif params[:filter_option].present?
-      @users = @users.where("#{params[:filter_option]} Like ?", "%#{params[:filter]}%")
+      users = users.where("#{params[:filter_option]} Like ?", "%#{params[:filter]}%")
     end
-    @pagy, @users = pagy(@users.all, items: 5)
+    @pagy, @users = pagy(users, items: 5)
   end
 
   def show 
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
   def destroy
     @user.is_deleted = true
 
-    UserMailer.user_deleted(@user).deliver_later(wait: 30.seconds)
+    UserMailer.user_deleted(@user).deliver_later(wait: 30.minutes)
 
     respond_to do |format|
       format.html { redirect_to users_path, notice: "User successfully deleted." }
@@ -55,13 +55,13 @@ class UsersController < ApplicationController
     end
   end
   
-  def deleteall
+  def bulk_delete 
     # User.destroy_by(id: params[:user_ids])
     @users = User.find(params[:user_ids])
     @users.each do |user|
       user.is_deleted = true
       user.save
-      UserMailer.user_deleted(user).deliver_later(wait: 30.seconds)
+      UserMailer.user_deleted(user).deliver_later(wait: 30.minutes)
     end
 
     respond_to do |format|
