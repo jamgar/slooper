@@ -16,18 +16,22 @@
 
   <div class="grid grid-cols-5 gap-4">
     <div class="form-control">
+      <%= form.label :first_name, class: "hidden" %>
       <%= form.text_field :first_name, class: "input input-bordered w-full bg-white" %>
     </div>
 
     <div class="form-control">
+      <%= form.label :last_name, class: "hidden" %>
       <%= form.text_field :last_name, class: "input input-bordered w-full bg-white" %>
     </div>
 
     <div class="form-control">
+      <%= form.label :email, class: "hidden" %>
       <%= form.text_field :email, class: "input input-bordered w-full bg-white" %>
     </div>
 
     <div class="form-control">
+      <%= form.label :phone, class: "hidden" %>
       <%= form.text_field :phone, class: "input input-bordered w-full bg-white" %>
     </div>
 

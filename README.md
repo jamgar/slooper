@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a sample project built with Ruby on Rails
 
 Things you may want to cover:
 
 * Ruby version
 
-* System dependencies
+* Setup
+  * Clone reposistory
+  * Run `bundle install`
+  * Run `rails db:create && rails db:migrate`
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
+* Usage
+  * Run `bin/dev` to start app
+  * Go to `http://localhost:3000`
+  * Click "Get users" this run the worker to get users from https://dummyjson.com/users
+  * Click "Users" to see the list of users
 
 * Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+  * Sidekiq
+  * Redis
