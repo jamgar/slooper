@@ -13,22 +13,24 @@
     </div>
     <%= form_with url: deleteall_users_path, method: :delete, data: { turbo_frame: "_top" } do |form|  %>
       <%= submit_tag "Bulk Delete", class: "btn btn-sm btn-error" %>
-      <div class="flex">
-        <div class="px-4"></div>
-        <div class="w-full py-4 grid grid-cols-5 gap-4 font-bold">
-          <div>First name</div>
-          <div>Last name</div>
-          <div>Email</div>
-          <div>Phone</div>
-          <div></div>
+      <% cache('table_of_users') do %>
+        <div class="flex">
+          <div class="px-4"></div>
+          <div class="w-full py-4 grid grid-cols-5 gap-4 font-bold">
+            <div>First name</div>
+            <div>Last name</div>
+            <div>Email</div>
+            <div>Phone</div>
+            <div></div>
+          </div>
         </div>
-      </div>
-      <%= turbo_frame_tag User.new %>
-      <%= turbo_frame_tag "users" do %>
-        <%= render @users %>
-        <div class="my-2">
-          <%== pagy_nav(@pagy, link_extra: 'data-turbo-action="advance"') if @pagy.pages > 1 %>
-        </div>
+        <%= turbo_frame_tag User.new %>
+        <%= turbo_frame_tag "users" do %>
+          <%= render @users %>
+          <div class="my-2">
+            <%== pagy_nav(@pagy, link_extra: 'data-turbo-action="advance"') if @pagy.pages > 1 %>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>
